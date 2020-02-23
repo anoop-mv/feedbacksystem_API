@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.fms.entity.EventDetails;
 import com.fms.entity.IEventReport;
 import com.fms.model.EventDetailResponse;
+import com.fms.model.EventReportWrapper;
 import com.fms.repo.EventRptRepository;
 
 @Service
@@ -86,4 +87,12 @@ public class EventSummaryService {
 		}
 		return eventResponse;
 	}
+	
+public EventReportWrapper getEventsReport(String role,String id){
+	EventReportWrapper eventReportWrapper=new EventReportWrapper();
+	List<EventDetailResponse> eventDetails = getEventDetails(role,id);
+	eventReportWrapper.setEventSummary(eventDetails);
+	return eventReportWrapper;
+	
+}
 }

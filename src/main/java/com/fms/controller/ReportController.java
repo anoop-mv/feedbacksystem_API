@@ -8,11 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fms.entity.IEventReport;
 import com.fms.model.DashResponse;
+import com.fms.model.EventReportWrapper;
 import com.fms.service.DashboardService;
 import com.fms.service.EventSummaryService;
 
@@ -47,6 +49,13 @@ public class ReportController {
 	public DashResponse getAllMetrics(HttpServletRequest request) {
 		DashResponse dResponse = dashboardService.calculateDashboardMetrics();
 		return dResponse;
+	}
+	
+	@RequestMapping("/report/eventReport")
+	public EventReportWrapper getEventsReport(@RequestHeader String role,@RequestHeader String id,HttpServletRequest request){
+		EventReportWrapper eventReportWrapper= eventSummaryService.getEventsReport(role, id);
+		 return eventReportWrapper;
+		
 	}
 
 }
